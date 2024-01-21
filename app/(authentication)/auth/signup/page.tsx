@@ -5,11 +5,12 @@ import Image from "next/image";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Metadata } from "next";
 import { useRouter } from "next/navigation";
-export const metadata: Metadata = {
-  title: "Signup Page | Next.js E-commerce Dashboard Template",
-  description: "This is Signup page for TailAdmin Next.js",
-  // other metadata
-};
+import axios from "axios";
+// export const metadata: Metadata = {
+//   title: "Signup Page | Next.js E-commerce Dashboard Template",
+//   description: "This is Signup page for TailAdmin Next.js",
+//   // other metadata
+// };
 
 const SignUp: React.FC = () => {
 
@@ -24,16 +25,27 @@ const SignUp: React.FC = () => {
   const handleSignUp = async (e: any) => {
     e.preventDefault();
 
-    // Perform form validation and API call here
-    // For simplicity, let's assume a successful signup for now
-    console.log('Form data submitted:', formData);
+    // // Perform form validation and API call here
+    // // For simplicity, let's assume a successful signup for now
+    // console.log('Form data submitted:', formData);
 
-    // Redirect the user after a successful signup
-    router.push('/auth/signin'); // Change to the appropriate route
+    // // Redirect the user after a successful signup
+    // router.push('/auth/signin'); // Change to the appropriate route
+    try {
+      console.log("Form data",formData)
+      const response = await axios.post("/api/auth", {
+        messages: formData,
+      });
+      console.log("Response",response)
+    } catch (error: any) {
+        console.log("Something went wrong");
+    } finally {
+      router.refresh();
+    }
   };
 
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e:any) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,

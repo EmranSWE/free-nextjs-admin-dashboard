@@ -1,15 +1,42 @@
+"use client"
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Metadata } from "next";
-export const metadata: Metadata = {
-  title: "Signin Page | Next.js E-commerce Dashboard Template",
-  description: "This is Signin page for TailAdmin Next.js",
-  // other metadata
-};
+import { useRouter } from "next/navigation";
+// export const metadata: Metadata = {
+//   title: "Signin Page | Next.js E-commerce Dashboard Template",
+//   description: "This is Signin page for TailAdmin Next.js",
+//   // other metadata
+// };
 
 const SignIn: React.FC = () => {
+  const router = useRouter();
+
+  const handleSignUp = async (e: any) => {
+    e.preventDefault();
+
+    // // Perform form validation and API call here
+    // // For simplicity, let's assume a successful signup for now
+    // console.log('Form data submitted:', formData);
+
+    // // Redirect the user after a successful signup
+    router.push('/'); // Change to the appropriate route
+    // try {
+    //   console.log("Form data",formData)
+    //   const response = await axios.post("/api/auth", {
+    //     messages: formData,
+    //   });
+    //   console.log("Response",response)
+    // } catch (error: any) {
+    //     console.log("Something went wrong");
+    // } finally {
+    //   router.refresh();
+    // }
+  };
+
+
   return (
     <>
       <Breadcrumb pageName="Sign In" />
@@ -172,7 +199,7 @@ const SignIn: React.FC = () => {
                 Sign In to TailAdmin
               </h2>
 
-              <form>
+              <form onSubmit={handleSignUp}>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Email
