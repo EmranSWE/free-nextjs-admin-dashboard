@@ -7,6 +7,7 @@ import Loader from "@/components/common/Loader";
 
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
+import Providers from "@/lib/Providers";
 
 export default function RootLayout({
   children,
@@ -22,6 +23,7 @@ export default function RootLayout({
   }, []);
 
   return (
+    <Providers>
     <html lang="en">
       <body suppressHydrationWarning={true}>
         <div className="dark:bg-boxdark-2 dark:text-bodydark">
@@ -59,5 +61,6 @@ export default function RootLayout({
         </div>
       </body>
     </html>
+    </Providers>
   );
 }

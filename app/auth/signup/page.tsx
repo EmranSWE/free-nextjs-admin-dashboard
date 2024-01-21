@@ -1,8 +1,10 @@
-import React from "react";
+"use client"
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Metadata } from "next";
+import { useRouter } from "next/navigation";
 export const metadata: Metadata = {
   title: "Signup Page | Next.js E-commerce Dashboard Template",
   description: "This is Signup page for TailAdmin Next.js",
@@ -10,6 +12,34 @@ export const metadata: Metadata = {
 };
 
 const SignUp: React.FC = () => {
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+  const router = useRouter();
+
+  const handleSignUp = async (e: any) => {
+    e.preventDefault();
+
+    // Perform form validation and API call here
+    // For simplicity, let's assume a successful signup for now
+    console.log('Form data submitted:', formData);
+
+    // Redirect the user after a successful signup
+    router.push('/auth/signin'); // Change to the appropriate route
+  };
+
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
   return (
     <>
       <Breadcrumb pageName="Sign Up" />
@@ -171,7 +201,7 @@ const SignUp: React.FC = () => {
                 Sign Up to TailAdmin
               </h2>
 
-              <form>
+              <form onSubmit={handleSignUp}>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Name
@@ -179,7 +209,11 @@ const SignUp: React.FC = () => {
                   <div className="relative">
                     <input
                       type="text"
+                      name="name"
                       placeholder="Enter your full name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     />
 
@@ -213,8 +247,11 @@ const SignUp: React.FC = () => {
                   </label>
                   <div className="relative">
                     <input
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="Enter your Email"                  
                       type="email"
-                      placeholder="Enter your email"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     />
 
@@ -246,6 +283,9 @@ const SignUp: React.FC = () => {
                     <input
                       type="password"
                       placeholder="Enter your password"
+                      name="password"
+                      value={formData.password}
+                      onChange={handleInputChange}  
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     />
 
@@ -280,6 +320,9 @@ const SignUp: React.FC = () => {
                   <div className="relative">
                     <input
                       type="password"
+                      name="confirmPassword"
+                      value={formData.confirmPassword}
+                      onChange={handleInputChange}
                       placeholder="Re-enter your password"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     />
